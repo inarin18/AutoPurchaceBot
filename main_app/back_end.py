@@ -18,6 +18,7 @@ from selenium.webdriver.common.keys import Keys
 # 例外処理
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementClickInterceptedException
+from selenium.common.exceptions import InvalidArgumentException
 
 
 __ALL__ = [
@@ -68,6 +69,18 @@ def init_driver(is_headless : bool = False, on_deploy : bool = True) -> webdrive
 
 
 def login(driver : webdriver.Chrome, user_email : str, user_password : str) -> None:
+    
+    """ チケットを買う回にアクセスした際にログイン
+    """
+    
+    # ログイン画面に遷移
+    login_window_css_selector = "#responsiveBaseFrame > header > section > nav > ul > li.buy > a"
+    login_window = driver.find_element(By.CSS_SELECTOR, login_window_css_selector)
+    try :
+        login_window.click()
+    except ElementClickInterceptedException: 
+        # ログイン画面への遷移ボタンがクリックできない場合 javascript でクリック
+        driver.execute_script('arguments[0].click();', login_window)
     
     # user_email
     email = driver.find_element(By.CSS_SELECTOR, "#email")
