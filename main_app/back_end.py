@@ -24,8 +24,7 @@ __ALL__ = [
 ]
 
 
-# 大域変数の定義
-URL_LIVE_POCKETS : str = "https://www.livepocket.jp/login"
+
 
 
 def init_driver(is_headless : bool = False) -> webdriver.Chrome:
@@ -89,6 +88,9 @@ def login(driver : webdriver.Chrome, user_email : str, user_password : str) -> N
     
 
 def test():
+    
+    # 大域変数の定義
+    URL_LIVE_POCKETS : str = "https://www.livepocket.jp/login"
     
     USER_EMAIL    = input("email    >>")
     USER_PASSWORD = input("password >>")
