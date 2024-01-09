@@ -24,10 +24,10 @@ __ALL__ = [
 ]
 
 
-
-
-
-def init_driver(is_headless : bool = False) -> webdriver.Chrome:
+def init_driver(
+    is_headless : bool = False,
+    on_deploy   : bool = True
+) -> webdriver.Chrome:
     
     """ ドライバオプションの設定 """
     options = Options()
@@ -51,8 +51,10 @@ def init_driver(is_headless : bool = False) -> webdriver.Chrome:
 
 
     """ クロームドライバパスの取得 """  
-    CHROMEDRIVER = ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
-    # CHROMEDRIVER = Path(__file__).parent / "Chromedriver" / "chromedriver.exe"
+    if on_deploy: # deploy時
+        CHROMEDRIVER = ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
+    else :        # local test時
+        CHROMEDRIVER = Path(__file__).parent / "Chromedriver" / "chromedriver.exe"
 
 
     """ ドライバーの初期化 """
@@ -87,7 +89,7 @@ def login(driver : webdriver.Chrome, user_email : str, user_password : str) -> N
     time.sleep(10)
     
 
-def test():
+def local_test():
     
     # 大域変数の定義
     URL_LIVE_POCKETS : str = "https://www.livepocket.jp/login"
@@ -97,7 +99,8 @@ def test():
     
     # ドライバの初期化   
     driver = init_driver(
-        is_headless=False
+        is_headless=False,
+        on_deploy=False
     )
     
     # URLにアクセス
@@ -115,4 +118,4 @@ def test():
 
 
 if __name__ == "__main__":
-    test()
+    local_test()
