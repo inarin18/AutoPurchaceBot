@@ -7,6 +7,9 @@ from webbrowser import Chrome
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.os_manager import ChromeType
+
 # Selenium4 からの新警告への対処
 from selenium.webdriver.chrome import service as fs
 from selenium.webdriver.common.by import By
@@ -33,6 +36,10 @@ def init_driver(is_headless : bool = False) -> webdriver.Chrome:
     # ブラウザを非表示で動かすかどうか
     if is_headless: 
         options.add_argument('--headless')
+        
+    options.add_argument('--disable-gpu')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
     
     # ブラウザ制御コメントを非表示化
     options.add_experimental_option( 
@@ -45,6 +52,7 @@ def init_driver(is_headless : bool = False) -> webdriver.Chrome:
 
 
     """ クロームドライバパスの取得 """  
+    CHROMEDRIVER = ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
     CHROMEDRIVER = Path(__file__).parent / "Chromedriver" / "chromedriver.exe"
 
 
