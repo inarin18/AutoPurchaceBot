@@ -1,1 +1,4 @@
-"# AutoPurchaceBot" 
+# 自動購入 Bot
+
+## Usage
+
