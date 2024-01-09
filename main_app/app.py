@@ -13,7 +13,7 @@ def config_session_state_vals():
         
         # ドライバの初期化
         driver = init_driver(
-            is_headless=True,
+            is_headless=False,
             on_deploy=True
         )
         
@@ -39,7 +39,7 @@ def main():
     st.session_state.driver.get(URL_LIVE_POCKETS)
     
     st.title("LIVE POCKETS 自動購入bot")
-    st.write("## ログイン情報") 
+    st.write("## ログイン情報")
     
     USER_EMAIL    = st.text_input("メールアドレス")
     USER_PASSWORD = st.text_input("パスワード")
