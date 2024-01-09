@@ -88,10 +88,10 @@ def login(driver : webdriver.Chrome, user_email : str, user_password : str) -> N
     time.sleep(10)
     
 
-def main():
+def test():
     
-    USER_EMAIL    = "hi710i7oka@outlook.jp"
-    USER_PASSWORD = input(">>")
+    USER_EMAIL    = input("email    >>")
+    USER_PASSWORD = input("password >>")
     
     # ドライバの初期化   
     driver = init_driver(
@@ -113,4 +113,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    test()
