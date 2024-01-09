@@ -23,11 +23,17 @@ def is_valid_login_info(user_email : str, user_password : str) -> bool:
 
 def main():
     
+    URL_LIVE_POCKETS : str = "https://www.livepocket.jp/login"
+    
+    # セッション変数の初期化
     config_session_state_vals()
     
+    # ドライバの初期化
     driver = init_driver(
         is_headless=True
     )
+    
+    driver.get(URL_LIVE_POCKETS)
     
     st.title("LIVE POCKETS 自動購入bot")
     st.write("## ログイン情報") 
