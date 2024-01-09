@@ -35,7 +35,7 @@ def main():
     # セッション変数の初期化
     config_session_state_vals(
         is_headless=True,
-        on_deploy=False
+        on_deploy=True
     )
     
     # タイトル
