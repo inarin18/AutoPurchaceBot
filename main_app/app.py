@@ -66,11 +66,16 @@ def main():
     login_button = st.button("ログイン")
     
     if login_button and is_valid_login_info(USER_EMAIL, USER_PASSWORD):
-        login(
+        
+        # チケット購入回固有のページでログイン
+        is_logined_correctly = login(
             driver=st.session_state.driver,
             user_email=USER_EMAIL,
             user_password=USER_PASSWORD
         )
+        
+        if is_logined_correctly:
+            st.success("ログインに成功しました")
 
     
 
