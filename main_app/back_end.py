@@ -53,7 +53,7 @@ def init_driver(is_headless : bool = False) -> webdriver.Chrome:
 
     """ クロームドライバパスの取得 """  
     CHROMEDRIVER = ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
-    CHROMEDRIVER = Path(__file__).parent / "Chromedriver" / "chromedriver.exe"
+    # CHROMEDRIVER = Path(__file__).parent / "Chromedriver" / "chromedriver.exe"
 
 
     """ ドライバーの初期化 """
