@@ -17,6 +17,7 @@ from selenium.webdriver.common.keys import Keys
 
 # 例外処理
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import ElementClickInterceptedException
 
 
 __ALL__ = [
@@ -24,10 +25,7 @@ __ALL__ = [
 ]
 
 
-def init_driver(
-    is_headless : bool = False,
-    on_deploy   : bool = True
-) -> webdriver.Chrome:
+def init_driver(is_headless : bool = False, on_deploy : bool = True) -> webdriver.Chrome:
     
     """ ドライバオプションの設定 """
     options = Options()
@@ -49,12 +47,11 @@ def init_driver(
     # WebDriverのテスト動作をTrueに
     options.use_chromium = True      
 
-
     """ クロームドライバパスの取得 """  
     if on_deploy: # deploy時
         CHROMEDRIVER = ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
     else :        # local test時
-        CHROMEDRIVER = Path(__file__).parent / "Chromedriver" / "chromedriver.exe"
+        CHROMEDRIVER = Path(__file__).parent.parent / "Chromedriver" / "chromedriver.exe"
 
 
     """ ドライバーの初期化 """
@@ -83,7 +80,11 @@ def login(driver : webdriver.Chrome, user_email : str, user_password : str) -> N
     # login
     login_css_selector = "#form > p.pull-left.btn-flat.btn-flat-input.btn-large.btn-arrow.btn-large.btn-green > button"
     login = driver.find_element(By.CSS_SELECTOR, login_css_selector)
-    login.click()
+    try :
+        login.click()
+    except ElementClickInterceptedException: 
+        # ログインボタンがクリックできない場合 javascript でクリック
+        driver.execute_script('arguments[0].click();', login)
     
     # ログイン完了まで待機
     time.sleep(10)
