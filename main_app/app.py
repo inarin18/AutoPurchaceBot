@@ -13,7 +13,7 @@ def config_session_state_vals():
         
         # ドライバの初期化
         driver = init_driver(
-            is_headless=False,
+            is_headless=True,
             on_deploy=True
         )
         
