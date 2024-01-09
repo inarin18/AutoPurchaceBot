@@ -68,7 +68,7 @@ def init_driver(is_headless : bool = False, on_deploy : bool = True) -> webdrive
     return driver
 
 
-def login(driver : webdriver.Chrome, user_email : str, user_password : str) -> None:
+def login(driver : webdriver.Chrome, user_email : str, user_password : str) -> bool:
     
     """ チケットを買う回にアクセスした際にログイン
     """
@@ -100,7 +100,9 @@ def login(driver : webdriver.Chrome, user_email : str, user_password : str) -> N
         driver.execute_script('arguments[0].click();', login)
     
     # ログイン完了まで待機
-    time.sleep(10)
+    time.sleep(2)
+    
+    return True
     
 
 def local_test():
