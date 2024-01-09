@@ -38,8 +38,12 @@ def main():
         on_deploy=True
     )
     
+    # ----------------------------------------------------------------------
+    
     # タイトル
     st.title("LIVE POCKETS 自動購入bot")
+    
+    # ----------------------------------------------------------------------
     
     # チケットを取得する回の情報
     st.subheader("TICKETS URL")
@@ -56,6 +60,8 @@ def main():
         # チケットを買う回のURLが入力されていない場合それ以降の処理を行わない
         st.warning("※まずチケットを買う回のURLを入力してください")
         st.stop()
+        
+    # -----------------------------------------------------------------------
     
     # ログイン情報
     st.subheader("ログイン情報")
@@ -64,6 +70,10 @@ def main():
     USER_PASSWORD = st.text_input("パスワード")
     
     login_button = st.button("ログイン")
+    
+    if not login_button:
+        # ログインボタンが押されていない場合それ以降の処理を行わない
+        st.stop()
     
     if login_button and is_valid_login_info(USER_EMAIL, USER_PASSWORD):
         
@@ -76,6 +86,10 @@ def main():
         
         if is_logined_correctly:
             st.success("ログインに成功しました")
+    
+    # ----------------------------------------------------------------------
+    
+    
 
     
 
