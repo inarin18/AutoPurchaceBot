@@ -1,6 +1,6 @@
 import streamlit as st
 
-from main_app.back_end import (
+from back_end import (
     init_driver
 )
 
