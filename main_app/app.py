@@ -20,6 +20,12 @@ def config_session_state_vals(is_headless : bool = False, on_deploy : bool = Tru
         )
         
         st.session_state["driver"] = driver
+    
+    if "user_email" not in st.session_state:
+        st.session_state["user_email"] = ""
+    
+    if "user_password" not in st.session_state:
+        st.session_state["user_password"] = ""
         
         
 def is_valid_login_info(user_email : str, user_password : str) -> bool:
@@ -30,12 +36,12 @@ def is_valid_login_info(user_email : str, user_password : str) -> bool:
     return True
 
 
-def main():
+def main(on_deploy : bool = True):
     
     # セッション変数の初期化
     config_session_state_vals(
         is_headless=True,
-        on_deploy=True
+        on_deploy=on_deploy
     )
     
     # ----------------------------------------------------------------------
@@ -63,19 +69,19 @@ def main():
         
     # -----------------------------------------------------------------------
     
-    # ログイン情報
+    # ログイン情報の登録
     st.subheader("ログイン情報")
     
     USER_EMAIL    = st.text_input("メールアドレス")
     USER_PASSWORD = st.text_input("パスワード")
     
-    login_button = st.button("ログイン")
+    login_info_register_button = st.button("ログイン情報を登録")
     
-    if not login_button:
+    if not login_info_register_button:
         # ログインボタンが押されていない場合それ以降の処理を行わない
         st.stop()
     
-    if login_button and is_valid_login_info(USER_EMAIL, USER_PASSWORD):
+    if login_info_register_button and is_valid_login_info(USER_EMAIL, USER_PASSWORD):
         
         # チケット購入回固有のページでログイン
         is_logined_correctly = login(
@@ -85,7 +91,11 @@ def main():
         )
         
         if is_logined_correctly:
-            st.success("ログインに成功しました")
+            st.success("ログイン情報の確認に成功しました")
+            
+            # ログインに成功したときのみログイン情報を登録
+            st.sesiion_state["user_email"]    = USER_EMAIL
+            st.session_state["user_password"] = USER_PASSWORD
     
     # ----------------------------------------------------------------------
     
@@ -95,4 +105,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(
+        on_deploy=True
+    )
