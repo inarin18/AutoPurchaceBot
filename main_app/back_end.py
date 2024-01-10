@@ -102,8 +102,8 @@ def login(driver : webdriver.Chrome, user_email : str, user_password : str) -> b
     # ログイン待機
     time.sleep(2)
     
-    # ログインが成功したか確認
-    if driver.current_url == "https://t.livepocket.jp/login":
+    # ログインが失敗したか確認
+    if driver.current_url == "https://t.livepocket.jp/login?acroot=header-new_p_u_nl":
         return False
     
     return True
