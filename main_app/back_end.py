@@ -2,6 +2,8 @@ import os, time, sys, csv
 
 from pathlib import Path
 
+import streamlit as st
+
 # Selenium の基本モジュール
 from webbrowser import Chrome
 from selenium import webdriver
@@ -101,6 +103,8 @@ def login(driver : webdriver.Chrome, user_email : str, user_password : str) -> b
     
     # ログイン待機
     time.sleep(2)
+    
+    st.write(driver.current_url)
     
     # ログインが失敗したか確認
     if driver.current_url == "https://t.livepocket.jp/login?acroot=header-new_p_u_nl":
