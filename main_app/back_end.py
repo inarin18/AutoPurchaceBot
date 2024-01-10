@@ -99,8 +99,12 @@ def login(driver : webdriver.Chrome, user_email : str, user_password : str) -> b
         # ログインボタンがクリックできない場合 javascript でクリック
         driver.execute_script('arguments[0].click();', login)
     
-    # ログイン完了まで待機
+    # ログイン待機
     time.sleep(2)
+    
+    # ログインが成功したか確認
+    if driver.current_url == "https://t.livepocket.jp/login":
+        return False
     
     return True
     
