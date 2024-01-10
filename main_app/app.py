@@ -92,10 +92,12 @@ def main(on_deploy : bool = True):
         
         if is_logined_correctly:
             st.success("ログイン情報の確認に成功しました")
-            
             # ログインに成功したときのみログイン情報を登録
-            st.sesiion_state["user_email"]    = USER_EMAIL
+            st.session_state["user_email"]    = USER_EMAIL
             st.session_state["user_password"] = USER_PASSWORD
+        else :
+            st.error("ログイン情報の確認に失敗しました．メールアドレスとパスワードを確認してください")
+            st.stop()
     
     # ----------------------------------------------------------------------
     
