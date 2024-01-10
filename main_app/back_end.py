@@ -103,12 +103,9 @@ def login(driver : webdriver.Chrome, user_email : str, user_password : str) -> b
     
     # ログイン待機
     time.sleep(2)
-    
-    st.write(driver.current_url)
-    
+
     # ログインが失敗したか確認
     is_invalid_login_info = driver.current_url == "https://t.livepocket.jp/login?acroot=header-res-new_p_u_nl"
-    # is_erorr_login_info = driver.current_url == "https://t.livepocket.jp/login?acroot=header-new_p_u_nl"
     if is_invalid_login_info :
         return False
     
